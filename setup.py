@@ -4,7 +4,7 @@ from Cython.Distutils import build_ext
 import numpy as np
 
 ext = [
-    Extension("speech_dtw._dtw_cost", ["speech_dtw/_dtw_cost.pyx"], include_dirs=[np.get_include()]),
+    # Extension("speech_dtw._dtw_cost", ["speech_dtw/_dtw_cost.pyx"], include_dirs=[np.get_include()]),
     Extension("speech_dtw._dtw", ["speech_dtw/_dtw.pyx"], include_dirs=[np.get_include()]),
     ]
 

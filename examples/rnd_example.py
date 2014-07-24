@@ -18,7 +18,7 @@ import time
 basedir = path.join(path.dirname(__file__), "../")
 sys.path.append(basedir)
 
-from speech_dtw import _dtw_cost
+from speech_dtw import _dtw
 
 
 #-----------------------------------------------------------------------------#
@@ -118,13 +118,19 @@ plt.xlim([-1, len(t)])
 # Use cyton code
 start = time.time()
 dist_mat = dist.cdist(s, t, "cosine")
-print "\nCost:", _dtw_cost.dp_cost(dist_mat)
+print "\nCost:", _dtw.dp_cost(dist_mat)
 elapsed = time.time() - start
 print "Time:", elapsed*1000, "ms"
 
 start = time.time()
-print "\nCost:", _dtw_cost.multivariate_dtw_cost_cosine(s, t)
+print "\nCost:", _dtw.multivariate_dtw_cost_cosine(s, t)
 elapsed = time.time() - start
 print "Time:", elapsed*1000, "ms"
+
+
+print "\nCost:", _dtw.multivariate_dtw(s, t)
+
+
+sys.exit()
 
 plt.show()

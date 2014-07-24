@@ -7,7 +7,7 @@ Date: 2014
 import numpy as np
 import numpy.testing as npt
 
-from speech_dtw import _dtw_cost
+from speech_dtw import _dtw
 
 
 def test_dp_cost():
@@ -43,7 +43,7 @@ def test_dp_cost():
         for j in range(len(t)):
             dist_mat[i, j] = abs(s[i] - t[j])
 
-    cost = _dtw_cost.dp_cost(dist_mat)
+    cost = _dtw.dp_cost(dist_mat)
     cost_expected = 6.43207308
 
     npt.assert_almost_equal(cost, cost_expected)
@@ -68,7 +68,7 @@ def test_dtw_cost():
         0.2036831 , 0.11112938, 0.25064554, 0.26799352, 0.25187908]
 
     # Calculate the DTW alignment cost
-    cost = _dtw_cost.multivariate_dtw_cost(
+    cost = _dtw.multivariate_dtw_cost(
         np.asarray(np.array([s]).T, order="c"), np.asarray(np.array([t]).T, order="c"), "euclidean"
         )
     cost_expected = 6.43207308
