@@ -102,12 +102,12 @@ print "Cost:", cost_mat[-1, -1]
 elapsed = (time.time() - start)
 print "Time:", elapsed*1000, "ms"
 
-plt.subplot(121)
+plt.subplot(131)
 plt.title("Distance matrix")
 plt.imshow(dist_mat, cmap=plt.cm.binary, interpolation="nearest")
 plt.ylim([len(s), -1])
 plt.xlim([-1, len(t)])
-plt.subplot(122)
+plt.subplot(132)
 plt.title("Cost matrix")
 plt.imshow(cost_mat, cmap=plt.cm.binary, interpolation="nearest")
 t_path, s_path = zip(*path)
@@ -127,10 +127,17 @@ print "\nCost:", _dtw.multivariate_dtw_cost_cosine(s, t)
 elapsed = time.time() - start
 print "Time:", elapsed*1000, "ms"
 
-
-print "\nCost:", _dtw.multivariate_dtw(s, t)
-
-
-sys.exit()
+start = time.time()
+path2, cost = _dtw.multivariate_dtw(s, t)
+print "\nCost:", cost
+elapsed = time.time() - start
+print "Time:", elapsed*1000, "ms"
+plt.subplot(133)
+plt.title("Cost matrix")
+plt.imshow(cost_mat, cmap=plt.cm.binary, interpolation="nearest")
+t_path, s_path = zip(*path2)
+plt.plot(s_path, t_path)
+plt.ylim([len(s), -1])
+plt.xlim([-1, len(t)])
 
 plt.show()

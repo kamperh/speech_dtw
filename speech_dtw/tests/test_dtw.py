@@ -23,9 +23,7 @@ def test_dtw():
 
     s2 = np.asarray(np.array([s2], dtype=np.double).T, order="c")
     t2 = np.asarray(np.array([t2], dtype=np.double).T, order="c")
-    path, cost_mat = _dtw.multivariate_dtw(s2, t2, metric="euclidean")
-    print path
+    path, cost = _dtw.multivariate_dtw(s2, t2, metric="euclidean")
 
+    npt.assert_almost_equal(cost, cost_expected)
     assert path == path_expected[::-1]
-    assert abs(cost_mat[-1, -1] - cost_expected) < EPSILON
-
