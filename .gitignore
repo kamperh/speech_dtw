@@ -1,0 +1,8 @@
+*
+!*/
+!.*
+!*.py
+!*.txt
+!*.wav
+!Makefile
+doc/
