@@ -7,7 +7,7 @@ Date: 2014
 import numpy as np
 import numpy.testing as npt
 
-import _dtw_cost
+from speech_dtw import _dtw_cost
 
 
 def test_dp_cost():
