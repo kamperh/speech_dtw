@@ -11,14 +11,18 @@ Contact: h.kamper@sms.ed.ac.uk
 Date: 2014
 """
 
+from os import path
 import argparse
 import datetime
 import numpy as np
 import sys
 import time
 
+basedir = path.join(path.dirname(__file__), "../")
+sys.path.append(basedir)
+
 from kaldi import read_kaldi_ark
-import _dtw_cost
+from speech_dtw import _dtw
 
 
 #-----------------------------------------------------------------------------#
@@ -84,9 +88,9 @@ def main():
     normalize_feats = args.normalize_feats
 
     if args.metric == "cosine":
-        dtw_cost_func = _dtw_cost.multivariate_dtw_cost_cosine
+        dtw_cost_func = _dtw.multivariate_dtw_cost_cosine
     elif args.metric == "euclidean":
-        dtw_cost_func = _dtw_cost.multivariate_dtw_cost_euclidean
+        dtw_cost_func = _dtw.multivariate_dtw_cost_euclidean
         normalize_feats = False
 
     # Read the pairs and the archive
