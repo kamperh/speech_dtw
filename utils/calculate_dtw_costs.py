@@ -1,24 +1,25 @@
 #!/usr/bin/env python
 
 """
-Calculate DTW distances of a set of pairs from features in a Kaldi archive.
-
-The distances are calculated in the same order as which the pairs occur in the 
-pairs file.
+Calculate DTW distances of a set of pairs from features in a given archive.
 
 Author: Herman Kamper
 Contact: h.kamper@sms.ed.ac.uk
 Date: 2014
 """
 
+from os import path
 import argparse
 import datetime
 import numpy as np
 import sys
 import time
 
+basedir = path.join(path.dirname(__file__), "../")
+sys.path.append(basedir)
+
 from kaldi import read_kaldi_ark
-import _dtw_cost
+from speech_dtw import _dtw
 
 
 #-----------------------------------------------------------------------------#
@@ -36,7 +37,10 @@ def check_argv():
         "features_fn", help="the file containing features; "
         "by default this should be a Kaldi archive in text format"
         )
-    parser.add_argument("distances_fn", help="the distances are written to this file")
+    parser.add_argument(
+        "distances_fn", help="the distances are written to this file "
+        "in the same order as which the pairs occur in `pairs_fn`"
+        )
     parser.add_argument(
         "--input_fmt", default="kaldi_txt", type=str, choices=["kaldi_txt", "npz"],
         help="the format of `features_fn` (default: %(default)s)"
@@ -51,11 +55,10 @@ def check_argv():
         help="distance metric for calculating frame similarity for DTW (default: %(default)s)"
         )
     parser.add_argument(
-        "--no_normalize_feats", dest="normalize_feats", action="store_false",
-        help="do not normalize features per frame before calculating DTWs (default is to normalize); if "
-        "euclidean distance metric is used, normalization is not performed"
+        "--normalize_feats", dest="normalize_feats", action="store_true",
+        help="normalize features per frame before calculating DTWs (default is not to normalize)"
         )
-    parser.set_defaults(normalize_feats=True)
+    parser.set_defaults(normalize_feats=False)
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
@@ -84,10 +87,10 @@ def main():
     normalize_feats = args.normalize_feats
 
     if args.metric == "cosine":
-        dtw_cost_func = _dtw_cost.multivariate_dtw_cost_cosine
+        dtw_cost_func = _dtw.multivariate_dtw_cost_cosine
     elif args.metric == "euclidean":
-        dtw_cost_func = _dtw_cost.multivariate_dtw_cost_euclidean
-        normalize_feats = False
+        dtw_cost_func = _dtw.multivariate_dtw_cost_euclidean
+        # normalize_feats = False
 
     # Read the pairs and the archive
     print "Start time: " + str(datetime.datetime.now())
@@ -104,7 +107,7 @@ def main():
 
     # Normalize features per frame
     if normalize_feats:
-        print "Normalizing features."
+        print "Normalizing features"
         for utt_id in ark:
             N = ark[utt_id].shape[0]
             for i in range(N):
