@@ -248,6 +248,8 @@ def multivariate_dtw(double[:, ::1] s, double[:, ::1] t, str metric="cosine"):
     """
     Calculate the DTW alignment between vector time series `s` and `t` and
     return the cost and path.
+
+    Duration normalization is not performed.
     """
     cdef int N, M
     cdef Py_ssize_t i, j, i_penalty
