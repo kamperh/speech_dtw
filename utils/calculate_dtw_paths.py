@@ -88,6 +88,8 @@ def main():
     paths_pkl_fn = args.paths_pkl_fn
     normalize_feats = args.normalize_feats
 
+    n_paths_notify = 100
+
     # if args.metric == "cosine":
     #     dtw_cost_func = _dtw.multivariate_dtw_cost_cosine
     # elif args.metric == "euclidean":
@@ -109,18 +111,23 @@ def main():
 
     # Normalize features per frame
     if normalize_feats:
-        print "Normalizing features."
+        print "Normalizing features"
         for utt_id in ark:
             N = ark[utt_id].shape[0]
             for i in range(N):
                 ark[utt_id][i, :] = ark[utt_id][i, :]/np.linalg.norm(ark[utt_id][i, :])
 
     # Calculate distances
-    print "Calculating paths"
+    print "Calculating paths: ",
     paths = []
+    i_paths = 0
     for i_pair, pair in enumerate(pairs):
         utt_id_1, utt_id_2 = pair
         paths.append(_dtw.multivariate_dtw(ark[utt_id_1], ark[utt_id_2])[0])
+        i_paths += 1
+        if i_paths % n_paths_notify == 0:
+            sys.stdout.write('.')
+    print
 
     # costs = np.zeros(len(pairs))
     # for i_pair, pair in enumerate(pairs):
