@@ -114,7 +114,7 @@ def main():
                 ark[utt_id][i, :] = ark[utt_id][i, :]/np.linalg.norm(ark[utt_id][i, :])
 
     # Calculate distances
-    print "Calculating distances."
+    print "Calculating distances"
     costs = np.zeros(len(pairs))
     for i_pair, pair in enumerate(pairs):
         utt_id_1, utt_id_2 = pair
