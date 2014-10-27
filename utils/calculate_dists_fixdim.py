@@ -12,9 +12,10 @@ from scipy.spatial.distance import pdist
 import argparse
 import datetime
 import sys
+import scipy.linalg
 import numpy as np
 
-from calculate_dtw_costs import read_pairs
+blas_norm, = scipy.linalg.get_blas_funcs(('nrm2',), (np.array([], dtype=np.float32),))
 
 
 #-----------------------------------------------------------------------------#
@@ -53,15 +54,26 @@ def main():
     print "Reading features from:", args.features_fn
     ark = np.load(args.features_fn)
 
-    print "Calculating distances"
+    print "Normalizing data"
+    n_embeds = 0
+    n_zeros = 0
     X = []
     labels = []
-    for label in ark:
+    for label in sorted(ark):
         labels.append(label)
-        X.append(ark[label])
+        cur_embed = ark[label]
+        if blas_norm(cur_embed) != 0:
+            X.append(cur_embed/blas_norm(cur_embed))
+        else:
+            X.append(np.zeros(cur_embed.shape))
+            n_zeros += 1
+        n_embeds += 1
     X = np.array(X)
-    distances = pdist(X, metric="cosine")
+    print "No. embeddings:", n_embeds
+    print "No. all-zero embeddings:", n_zeros
 
+    print "Calculating distances"
+    distances = pdist(X, metric="cosine")
 
     # print "Calculating distances"
     # distances = np.zeros(len(pairs))
