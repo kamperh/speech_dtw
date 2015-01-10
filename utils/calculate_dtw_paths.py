@@ -106,6 +106,7 @@ def main():
     elif args.input_fmt == "npz":
         ark = np.load(features_fn)
         ark = dict(ark)
+    print "Number of entries loaded:", len(ark)
 
     # sys.stdout.flush()
 
