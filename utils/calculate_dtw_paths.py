@@ -124,7 +124,9 @@ def main():
     i_paths = 0
     for i_pair, pair in enumerate(pairs):
         utt_id_1, utt_id_2 = pair
-        paths.append(_dtw.multivariate_dtw(ark[utt_id_1], ark[utt_id_2])[0])
+        paths.append(_dtw.multivariate_dtw(
+            np.array(ark[utt_id_1], dtype=np.double), np.array(ark[utt_id_2], dtype=np.double)
+            )[0])
         i_paths += 1
         if i_paths % n_paths_notify == 0:
             sys.stdout.write('.')

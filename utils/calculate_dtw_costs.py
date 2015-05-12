@@ -118,7 +118,9 @@ def main():
     costs = np.zeros(len(pairs))
     for i_pair, pair in enumerate(pairs):
         utt_id_1, utt_id_2 = pair
-        costs[i_pair] = dtw_cost_func(ark[utt_id_1], ark[utt_id_2], True)
+        costs[i_pair] = dtw_cost_func(
+            np.array(ark[utt_id_1], dtype=np.double), np.array(ark[utt_id_2], dtype=np.double), True
+            )
 
     # Write to file
     if args.binary_dists:
