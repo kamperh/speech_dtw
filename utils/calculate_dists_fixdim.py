@@ -54,7 +54,7 @@ def main():
     print "Reading features from:", args.features_fn
     ark = np.load(args.features_fn)
 
-    print "Normalizing data"
+    print "Reading embeddings"
     n_embeds = 0
     n_zeros = 0
     X = []
@@ -62,15 +62,16 @@ def main():
     for label in sorted(ark):
         labels.append(label)
         cur_embed = ark[label]
-        if blas_norm(cur_embed) != 0:
-            X.append(cur_embed/blas_norm(cur_embed))
-        else:
-            X.append(np.zeros(cur_embed.shape))
-            n_zeros += 1
+        X.append(cur_embed)
+        # if blas_norm(cur_embed) != 0:
+        #     X.append(cur_embed/blas_norm(cur_embed))
+        # else:
+        #     X.append(np.zeros(cur_embed.shape))
+        #     n_zeros += 1
         n_embeds += 1
     X = np.array(X)
     print "No. embeddings:", n_embeds
-    print "No. all-zero embeddings:", n_zeros
+    # print "No. all-zero embeddings:", n_zeros
 
     print "Calculating distances"
     distances = pdist(X, metric="cosine")
