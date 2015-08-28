@@ -29,7 +29,7 @@ def check_argv():
         "features_fn", help="the file containing features; "
         "this should be in .npz numpy archive format"
         )
-    # parser.add_argument("labels_fn", help="output labels file")
+    parser.add_argument("labels_fn", help="output labels file")
     parser.add_argument(
         "distances_fn", help="the distances are written to this file"
         )
@@ -42,7 +42,7 @@ def check_argv():
         help="normalize embeddings to unit sphere before calculating distances (default is not to do this)"
         )
     parser.add_argument(
-        "--metric", choices=["cosine", "euclidean"], default="cosine",
+        "--metric", choices=["cosine", "euclidean", "hamming", "chebyshev"], default="cosine",
         help="distance metric (default: %(default)s)"
         )    
     if len(sys.argv) == 1:
@@ -103,8 +103,8 @@ def main():
         print "Writing distances to text file:", args.distances_fn
         np.asarray(distances, dtype=np.float32).tofile(args.distances_fn, "\n")
         open(args.distances_fn, "a").write("\n")  # add final newline
-    # print "Writing labels to file:", args.labels_fn
-    # open(args.labels_fn, "w").write("\n".join(labels) + "\n")
+    print "Writing labels to file:", args.labels_fn
+    open(args.labels_fn, "w").write("\n".join(labels) + "\n")
     print datetime.datetime.now()
 
 

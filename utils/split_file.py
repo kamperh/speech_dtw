@@ -60,7 +60,7 @@ def main():
     basename, extension = path.splitext(path.split(input_fn)[-1])
 
     # Write lines to split files
-    i_split = 0
+    i_split = 1
     n_cur_lines = 0
     fn_cur = path.join(output_dir, basename + "." + str(i_split) + extension)
     f_cur = open(fn_cur, "w")
@@ -70,6 +70,8 @@ def main():
         if n_cur_lines == n_lines_per_split:
             f_cur.close()
             print "Wrote " + str(n_cur_lines) + " lines to: " + fn_cur
+            if i_split == n_files:
+                break
             i_split += 1
             fn_cur = path.join(output_dir, basename + "." + str(i_split) + extension)
             f_cur = open(fn_cur, "w")
