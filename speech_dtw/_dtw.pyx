@@ -123,6 +123,21 @@ cdef inline double euclidean_dist(
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.cdivision(True)
+cdef inline double euclidean_squared_dist(
+        double[:, ::1] x, double[:, ::1] y, Py_ssize_t x_i, Py_ssize_t y_i
+        ):
+    """Calculate the Euclidean distance between `x[x_i, :]` and `y[y_i, :]`."""
+    cdef int N = x.shape[1]
+    cdef Py_ssize_t i
+    cdef double sum_square_diffs = 0.
+    for i in range(N):
+        sum_square_diffs += (x[x_i, i] - y[y_i, i]) * (x[x_i, i] - y[y_i, i])
+    return sum_square_diffs
+
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
 def multivariate_dtw_cost(
         double[:, ::1] s, double[:, ::1] t, str metric="cosine"
         ):
@@ -235,6 +250,46 @@ def multivariate_dtw_cost_euclidean(
             costs[1] = cost_mat[i, j + 1]   # insertion (1)
             costs[2] = cost_mat[i + 1, j]   # deletion (2)
             cost_mat[i + 1, j + 1] = euclidean_dist(s, t, i, j) + min3(costs)
+
+    if dur_normalize:
+        return cost_mat[N, M]/(N + M)
+    else:
+        return cost_mat[N, M]
+
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+def multivariate_dtw_cost_euclidean_squared(
+        double[:, ::1] s, double[:, ::1] t, bool dur_normalize=False
+        ):
+    """
+    Calculate the DTW alignment cost between vector time series `s` and `t`
+    using cosine distance.
+
+    This function is the same as `multivariate_dtw_cost` but always uses
+    euclidean distance to help with speed (i.e. don't have to test metric
+    distance type).
+    """
+    cdef int N, M
+    cdef Py_ssize_t i, j
+    cdef double[:, ::1] cost_mat
+    cdef double[3] costs
+
+    N = s.shape[0]
+    M = t.shape[0]
+    
+    # Initialize the cost matrix
+    cost_mat = np.zeros((N + 1, M + 1)) + DBL_MAX
+    cost_mat[0, 0] = 0.
+
+    # Fill the cost matrix
+    for i in range(N):
+        for j in range(M):
+            costs[0] = cost_mat[i, j]       # match (0)
+            costs[1] = cost_mat[i, j + 1]   # insertion (1)
+            costs[2] = cost_mat[i + 1, j]   # deletion (2)
+            cost_mat[i + 1, j + 1] = euclidean_squared_dist(s, t, i, j) + min3(costs)
 
     if dur_normalize:
         return cost_mat[N, M]/(N + M)

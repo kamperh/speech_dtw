@@ -51,7 +51,7 @@ def check_argv():
         )
     parser.set_defaults(binary_dists=False)
     parser.add_argument(
-        "--metric", default="cosine", type=str, choices=["cosine", "euclidean"],
+        "--metric", default="cosine", type=str, choices=["cosine", "euclidean", "euclidean_squared"],
         help="distance metric for calculating frame similarity for DTW (default: %(default)s)"
         )
     parser.add_argument(
@@ -91,6 +91,8 @@ def main():
     elif args.metric == "euclidean":
         dtw_cost_func = _dtw.multivariate_dtw_cost_euclidean
         # normalize_feats = False
+    elif args.metric == "euclidean_squared":
+        dtw_cost_func = _dtw.multivariate_dtw_cost_euclidean_squared
 
     # Read the pairs and the archive
     print "Start time: " + str(datetime.datetime.now())
