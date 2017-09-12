@@ -1,11 +1,10 @@
-==========
-Speech DTW
-==========
+Dynamic Time Warping for Speech Processing
+==========================================
 
-
-Introduction
-------------
-Tools for performing and evaluating speech processing tasks using DTW.
+Overview
+--------
+Tools (functions and scripts) for performing and evaluating speech processing
+tasks using dynamic time warping (DTW).
 
 
 
