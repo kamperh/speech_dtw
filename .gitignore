@@ -6,3 +6,4 @@
 !*.ipynb
 !*.md
 !Makefile
+*-checkpoint.ipynb
