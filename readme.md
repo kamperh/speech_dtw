@@ -21,9 +21,9 @@ Building and testing the code
 
 Examples
 --------
-Some examples are given in the `examples/` directory. The script
+Examples are given in the `examples/` directory. The script
 `examples/rnd_example.py` illustrates standard DTW and compares a pure Python
 implementation to the Cython implementation.
 
-The IPython notebook `examples/speech_dtw_qbe.ipynb` illustrates how to do very
-basic query-by-example (QbE) search using standard DTW. 
+The IPython notebook `examples/speech_dtw_qbe.ipynb` illustrates how to do
+(very basic) query-by-example (QbE) search using standard DTW.
