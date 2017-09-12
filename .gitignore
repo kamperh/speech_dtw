@@ -3,6 +3,6 @@
 !.*
 !*.py
 !*.pyx
+!*.ipynb
 !*.md
 !Makefile
-doc/
