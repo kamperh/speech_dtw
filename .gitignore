@@ -3,6 +3,6 @@
 !.*
 !*.py
 !*.pyx
-!*.rst
+!*.md
 !Makefile
 doc/
