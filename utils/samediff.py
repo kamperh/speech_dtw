@@ -16,7 +16,6 @@ Date: 2014
 from scipy.spatial.distance import pdist
 import argparse
 import datetime
-import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
@@ -61,6 +60,7 @@ def average_precision(pos_distances, neg_distances, show_plot):
     prb = (recall[prb_i] + precision[prb_i])/2.
 
     if show_plot:
+        import matplotlib.pyplot as plt
         plt.plot(recall, precision)
         plt.xlabel("Recall")
         plt.ylabel("Precision")
