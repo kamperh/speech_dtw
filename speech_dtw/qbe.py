@@ -69,7 +69,7 @@ def parallel_dtw_sweep_min(query_list, search_list, n_step=3, n_cpus=1):
     `search_list`.
     """
     from joblib import Parallel, delayed
-    costs = Parallel(n_jobs=n_cpus)(delayed
+    costs = Parallel(n_jobs=n_cpus, max_nbytes=None)(delayed
         (dtw_sweep_min)(query_seq, search_seq) for query_seq in query_list for
         search_seq in search_list
         )
