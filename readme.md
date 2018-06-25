@@ -10,8 +10,8 @@ tasks using dynamic time warping (DTW).
 Dependencies
 ------------
 - [Cython](http://cython.org/)
-- [python_speech_features](github.com/jameslyons/python_speech_features): Used
-  in some of the examples.
+- [python_speech_features](http://github.com/jameslyons/python_speech_features):
+  Used in some of the examples.
 - [joblib](https://pythonhosted.org/joblib/): Used to parallelize
   query-by-example search in `utils/qbe.py`.
 
