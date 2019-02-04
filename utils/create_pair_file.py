@@ -51,8 +51,8 @@ def main():
 
     # Generate all possible pairs
     f = open(pairs_fn, "w")
-    for i in xrange(0, m - 1):
-        for j in xrange(i + 1, m):
+    for i in range(0, m - 1):
+        for j in range(i + 1, m):
             f.write(labels[i] + " " + labels[j] + "\n")
     f.close()
     print("Wrote pairs to file:", pairs_fn)
