@@ -4,10 +4,12 @@
 Write all matrices in a Kaldi archive (text format) to Numpy .npz format.
 
 Author: Herman Kamper
-Contact: h.kamper@sms.ed.ac.uk
-Date: 2014-2015
+Contact: kamperh@gmail.com
+Date: 2014-2015, 2019
 """
 
+from __future__ import division
+from __future__ import print_function
 import argparse
 import datetime
 import numpy as np
@@ -38,20 +40,20 @@ def check_argv():
 def main():
     args = check_argv()
 
-    print str(datetime.datetime.now())
+    print(str(datetime.datetime.now()))
 
-    print "Reading Kaldi archive:", args.kaldi_ark_fn
+    print("Reading Kaldi archive:", args.kaldi_ark_fn)
     kaldi_ark = read_kaldi_ark(args.kaldi_ark_fn)
-    print "Number of keys in archive:", len(kaldi_ark.keys())
+    print("Number of keys in archive:", len(kaldi_ark.keys()))
 
     # all_features = np.asarray(np.concatenate(kaldi_ark.values(), axis=0), dtype=np.float32)
-    # print "Number of feature vectors:", all_features.shape[0]
-    # print "Feature vector dimensions:", all_features.shape[1]
+    # print("Number of feature vectors:", all_features.shape[0])
+    # print("Feature vector dimensions:", all_features.shape[1])
 
-    print "Writing feature vectors to file:", args.npz_fn
+    print("Writing feature vectors to file:", args.npz_fn)
     np.savez(args.npz_fn, **kaldi_ark)
 
-    print str(datetime.datetime.now())
+    print(str(datetime.datetime.now()))
 
 
 if __name__ == "__main__":

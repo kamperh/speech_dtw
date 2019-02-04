@@ -4,10 +4,12 @@
 Calculate DTW paths of a set of pairs from features in a given archive.
 
 Author: Herman Kamper
-Contact: h.kamper@sms.ed.ac.uk
-Date: 2014
+Contact: kamperh@gmail.com
+Date: 2019
 """
 
+from __future__ import division
+from __future__ import print_function
 from os import path
 import argparse
 import cPickle
@@ -97,29 +99,29 @@ def main():
         # normalize_feats = False
 
     # Read the pairs and the archive
-    print "Start time: " + str(datetime.datetime.now())
-    print "Reading pairs from:", pairs_fn
+    print("Start time: " + str(datetime.datetime.now()))
+    print("Reading pairs from:", pairs_fn)
     pairs = read_pairs(pairs_fn)
-    print "Reading features from:", features_fn
+    print("Reading features from:", features_fn)
     if args.input_fmt == "kaldi_txt":
         ark = read_kaldi_ark(features_fn)
     elif args.input_fmt == "npz":
         ark = np.load(features_fn)
         ark = dict(ark)
-    print "Number of entries loaded:", len(ark)
+    print("Number of entries loaded:", len(ark))
 
     # sys.stdout.flush()
 
     # Normalize features per frame
     if normalize_feats:
-        print "Normalizing features"
+        print("Normalizing features")
         for utt_id in ark:
             N = ark[utt_id].shape[0]
             for i in range(N):
                 ark[utt_id][i, :] = ark[utt_id][i, :]/np.linalg.norm(ark[utt_id][i, :])
 
     # Calculate distances
-    print "Calculating paths: ",
+    print("Calculating paths: ",)
     paths = []
     i_paths = 0
     for i_pair, pair in enumerate(pairs):
@@ -138,18 +140,18 @@ def main():
     #     costs[i_pair] = dtw_cost_func(ark[utt_id_1], ark[utt_id_2], True)
 
     # Write to file
-    print "Pickling paths:", paths_pkl_fn
+    print("Pickling paths:", paths_pkl_fn)
     f = open(paths_pkl_fn, "wb")
     cPickle.dump(paths, f, -1)
     f.close()
     # if args.binary_dists:
-    #     print "Writing distances to binary file:", distances_fn
+    #     print("Writing distances to binary file:", distances_fn)
     #     np.asarray(costs, dtype=np.float32).tofile(distances_fn)
     # else:
-    #     print "Writing distances to text file:", distances_fn
+    #     print("Writing distances to text file:", distances_fn)
     #     np.asarray(costs, dtype=np.float32).tofile(distances_fn, "\n")
     #     open(distances_fn, "a").write("\n")  # add final newline
-    print "End time: " + str(datetime.datetime.now())
+    print("End time: " + str(datetime.datetime.now()))
 
 
 if __name__ == "__main__":

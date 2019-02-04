@@ -6,10 +6,12 @@ Split a given file into the specified number of files.
 Order is preserved.
 
 Author: Herman Kamper
-Contact: h.kamper@sms.ed.ac.uk
-Date: 2014
+Contact: kamperh@gmail.com
+Date: 2014, 2019
 """
 
+from __future__ import division
+from __future__ import print_function
 from os import path
 import argparse
 import math
@@ -53,9 +55,9 @@ def main():
 
     # Read the input file
     lines = open(input_fn).readlines()
-    print "Number of lines in input:", len(lines)
+    print("Number of lines in input:", len(lines))
     n_lines_per_split = int(math.ceil(float(len(lines))/n_files))
-    print "Max number of lines per split:", n_lines_per_split
+    print("Max number of lines per split:", n_lines_per_split)
 
     basename, extension = path.splitext(path.split(input_fn)[-1])
 
@@ -69,7 +71,7 @@ def main():
         n_cur_lines += 1
         if n_cur_lines == n_lines_per_split:
             f_cur.close()
-            print "Wrote " + str(n_cur_lines) + " lines to: " + fn_cur
+            print("Wrote " + str(n_cur_lines) + " lines to: " + fn_cur)
             if i_split == n_files:
                 break
             i_split += 1
@@ -77,7 +79,7 @@ def main():
             f_cur = open(fn_cur, "w")
             n_cur_lines = 0
     f_cur.close()
-    print "Wrote " + str(n_cur_lines) + " lines to: " + fn_cur
+    print("Wrote " + str(n_cur_lines) + " lines to: " + fn_cur)
 
 
 if __name__ == "__main__":

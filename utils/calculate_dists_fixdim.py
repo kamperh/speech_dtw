@@ -4,8 +4,8 @@
 Calculate the distances between fixed-dimensional vectors and write to file.
 
 Author: Herman Kamper
-Contact: h.kamper@sms.ed.ac.uk
-Date: 2014-2015
+Contact: kamperh@gmail.com
+Date: 2014-2015, 2019
 """
 
 from scipy.spatial.distance import pdist
@@ -58,14 +58,14 @@ def check_argv():
 def main():
     args = check_argv()
     
-    print datetime.datetime.now()
-    print "Reading features from:", args.features_fn
+    print(datetime.datetime.now())
+    print("Reading features from:", args.features_fn)
     ark = np.load(args.features_fn)
 
     if args.normalize:
-        print "Normalizing embeddings"
+        print("Normalizing embeddings")
     else:
-        print "Reading embeddings"
+        print("Reading embeddings")
     n_embeds = 0
     n_zeros = 0
     X = []
@@ -83,13 +83,13 @@ def main():
             X.append(cur_embed)
         n_embeds += 1
     X = np.array(X)
-    print "No. embeddings:", n_embeds
-    # print "No. all-zero embeddings:", n_zeros
+    print("No. embeddings:", n_embeds)
+    # print("No. all-zero embeddings:", n_zeros)
 
-    print "Calculating distances"
+    print("Calculating distances")
     distances = pdist(X, metric=args.metric)
 
-    # print "Calculating distances"
+    # print("Calculating distances")
     # distances = np.zeros(len(pairs))
     # for i_pair, pair in enumerate(pairs):
     #     utt_id_1, utt_id_2 = pair
@@ -97,15 +97,15 @@ def main():
 
     # Write to file
     if args.binary_dists:
-        print "Writing distances to binary file:", args.distances_fn
+        print("Writing distances to binary file:", args.distances_fn)
         np.asarray(distances, dtype=np.float32).tofile(args.distances_fn)
     else:
-        print "Writing distances to text file:", args.distances_fn
+        print("Writing distances to text file:", args.distances_fn)
         np.asarray(distances, dtype=np.float32).tofile(args.distances_fn, "\n")
         open(args.distances_fn, "a").write("\n")  # add final newline
-    print "Writing labels to file:", args.labels_fn
+    print("Writing labels to file:", args.labels_fn)
     open(args.labels_fn, "w").write("\n".join(labels) + "\n")
-    print datetime.datetime.now()
+    print(datetime.datetime.now())
 
 
 if __name__ == "__main__":

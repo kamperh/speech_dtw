@@ -7,10 +7,12 @@ The order of the pairs is the same as that used when calculating distances
 using `scipy.spatial.distance.pdist`.
 
 Author: Herman Kamper
-Contact: h.kamper@sms.ed.ac.uk
-Date: 2014
+Contact: kamperh@gmail.com
+Date: 2014, 2019
 """
 
+from __future__ import division
+from __future__ import print_function
 import argparse
 import sys
 
@@ -53,7 +55,7 @@ def main():
         for j in xrange(i + 1, m):
             f.write(labels[i] + " " + labels[j] + "\n")
     f.close()
-    print "Wrote pairs to file:", pairs_fn
+    print("Wrote pairs to file:", pairs_fn)
 
 
 if __name__ == "__main__":
