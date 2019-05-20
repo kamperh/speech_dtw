@@ -18,7 +18,7 @@ import numpy as np
 import sys
 import time
 
-basedir = path.join(path.dirname(__file__), "../")
+basedir = path.join(path.dirname(__file__), "..")
 sys.path.append(basedir)
 
 from kaldi import read_kaldi_ark

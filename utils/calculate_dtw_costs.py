@@ -5,7 +5,7 @@ Calculate DTW distances of a set of pairs from features in a given archive.
 
 Author: Herman Kamper
 Contact: kamperh@gmail.com
-Date: 2014
+Date: 2014, 2019
 """
 
 from __future__ import division
@@ -17,7 +17,7 @@ import numpy as np
 import sys
 import time
 
-basedir = path.join(path.dirname(__file__), "../")
+basedir = path.join(path.dirname(__file__), "..")
 sys.path.append(basedir)
 
 from kaldi import read_kaldi_ark
