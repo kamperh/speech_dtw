@@ -122,8 +122,18 @@ def main():
     costs = np.zeros(len(pairs))
     for i_pair, pair in enumerate(pairs):
         utt_id_1, utt_id_2 = pair
+        # print(ark[utt_id_1].shape)
+        # print(ark[utt_id_2].shape)
+        # print(ark[utt_id_1].dtype)
+        # print(ark[utt_id_2].dtype)
+        # print(ark[utt_id_1].flags['C_CONTIGUOUS'])
+        # print(ark[utt_id_2].flags['C_CONTIGUOUS'])
+        # print(np.array(ark[utt_id_1], dtype=np.double).flags['C_CONTIGUOUS'])
+        # print(np.array(ark[utt_id_2], dtype=np.double).flags['C_CONTIGUOUS'])
+        # assert False
         costs[i_pair] = dtw_cost_func(
-            np.array(ark[utt_id_1], dtype=np.double), np.array(ark[utt_id_2], dtype=np.double), True
+            np.array(ark[utt_id_1], dtype=np.double, order="c"),
+            np.array(ark[utt_id_2], dtype=np.double, order="c"), True
             )
 
     # Write to file
