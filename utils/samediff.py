@@ -18,6 +18,7 @@ from __future__ import print_function
 from datetime import datetime
 from scipy.spatial.distance import pdist
 import argparse
+import codecs
 import numpy as np
 import sys
 
@@ -291,7 +292,7 @@ def main():
 
     # Read labels
     labels = []
-    with open(args.labels_fn) as f:
+    with codecs.open(args.labels_fn, "r", "utf-8") as f:
         for line in f:
             labels.append(line.strip())
     # labels = [i.strip() for i in open(args.labels_fn)]
@@ -324,7 +325,7 @@ def main():
 
         # Read speakers
         speakers = []
-        with open(args.speakers_fn) as f:
+        with codecs.open(args.speakers_fn, "r", "utf-8") as f:
             for line in f:
                 speakers.append(line.strip())
 
