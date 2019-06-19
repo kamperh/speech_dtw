@@ -316,7 +316,8 @@ def main():
         print("Calculating statistics")
         matches = generate_matches_array(labels)
         ap, prb = average_precision(
-            distances_vec[matches == True], distances_vec[matches == False], False
+            distances_vec[matches == True], distances_vec[matches == False],
+            False
             )
         print("Average precision:", ap)
         print("Precision-recall breakeven:", prb)
@@ -337,8 +338,8 @@ def main():
         # Calculate average precision
         sw_ap, sw_prb, swdp_ap, swdp_prb = average_precision_swdp(
             distances_vec[np.logical_and(word_matches, speaker_matches)],
-            distances_vec[np.logical_and(word_matches, speaker_matches == False)],
-            distances_vec[word_matches == False]
+            distances_vec[np.logical_and(word_matches, speaker_matches ==
+            False)], distances_vec[word_matches == False]
             )
         print("Average precision:", sw_ap)
         print("Precision-recall breakeven:", sw_prb)
