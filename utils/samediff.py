@@ -326,7 +326,7 @@ def main():
 
         # Read speakers
         speakers = []
-        with codecs.open(args.speakers_fn, "r", "utf-8") as f:
+        with open(args.speakers_fn) as f:
             for line in f:
                 speakers.append(line.strip())
 
