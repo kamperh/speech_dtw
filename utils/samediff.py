@@ -335,9 +335,9 @@ def main():
 
         # Calculate average precision
         sw_ap, sw_prb, swdp_ap, swdp_prb = average_precision_swdp(
-            distances[np.logical_and(word_matches, speaker_matches)],
-            distances[np.logical_and(word_matches, speaker_matches == False)],
-            distances[word_matches == False]
+            distances_vec[np.logical_and(word_matches, speaker_matches)],
+            distances_vec[np.logical_and(word_matches, speaker_matches == False)],
+            distances_vec[word_matches == False]
             )
         print("Average precision:", sw_ap)
         print("Precision-recall breakeven:", sw_prb)
