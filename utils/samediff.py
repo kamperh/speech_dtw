@@ -334,7 +334,7 @@ def main():
         speaker_matches = generate_matches_array(speakers)
 
         # Calculate average precision
-        sw_ap, sw_prb, swdp_ap, swdp_prb = samediff.average_precision_swdp(
+        sw_ap, sw_prb, swdp_ap, swdp_prb = average_precision_swdp(
             distances[np.logical_and(word_matches, speaker_matches)],
             distances[np.logical_and(word_matches, speaker_matches == False)],
             distances[word_matches == False]
