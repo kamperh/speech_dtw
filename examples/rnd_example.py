@@ -98,9 +98,9 @@ t = np.random.rand(60, D)
 start = time.time()
 dist_mat = dist.cdist(s, t, "cosine")
 path, cost_mat = dp(dist_mat)
-print "Cost:", cost_mat[-1, -1]
+print("Cost:", cost_mat[-1, -1])
 elapsed = (time.time() - start)
-print "Time:", elapsed*1000, "ms"
+print("Time:", elapsed*1000, "ms")
 
 plt.subplot(131)
 plt.title("Distance matrix")
@@ -118,20 +118,20 @@ plt.xlim([-1, len(t)])
 # Use cyton code
 start = time.time()
 dist_mat = dist.cdist(s, t, "cosine")
-print "\nCost:", _dtw.dp_cost(dist_mat)
+print("\nCost:", _dtw.dp_cost(dist_mat))
 elapsed = time.time() - start
-print "Time:", elapsed*1000, "ms"
+print("Time:", elapsed*1000, "ms")
 
 start = time.time()
-print "\nCost:", _dtw.multivariate_dtw_cost_cosine(s, t)
+print("\nCost:", _dtw.multivariate_dtw_cost_cosine(s, t))
 elapsed = time.time() - start
-print "Time:", elapsed*1000, "ms"
+print("Time:", elapsed*1000, "ms")
 
 start = time.time()
 path2, cost = _dtw.multivariate_dtw(s, t)
-print "\nCost:", cost
+print("\nCost:", cost)
 elapsed = time.time() - start
-print "Time:", elapsed*1000, "ms"
+print("Time:", elapsed*1000, "ms")
 plt.subplot(133)
 plt.title("Cost matrix")
 plt.imshow(cost_mat, cmap=plt.cm.binary, interpolation="nearest")
