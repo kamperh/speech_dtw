@@ -1,6 +1,9 @@
 Dynamic Time Warping for Speech Processing
 ==========================================
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](license.md)
+
+
 Overview
 --------
 Tools (functions and scripts) for performing and evaluating speech processing
